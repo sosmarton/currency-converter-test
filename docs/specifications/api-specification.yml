@@ -1,0 +1,90 @@
+swagger: '2.0'
+
+info:
+  version: 1.0.0
+  title: Currency Converter API
+
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+paths:
+  /currencies:
+    get:
+      description: Returns all the available currencies to convert.
+      responses:
+        '200':
+          description: Get currencies response
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                enum: ['USD', 'HUF', 'EUR', 'GBP']
+  /rates/{fromCurrency}:
+    get:
+      parameters:
+        - in: path
+          name: fromCurrency
+          type: string
+          enum: ['USD', 'HUF', 'EUR', 'GBP']
+          required: true
+          description: From currency
+      description: Get all rates
+      responses:
+        '200':
+          description: Get rates response
+          schema:
+            $ref: '#/definitions/rate'
+  /convert:
+    post:
+      parameters:
+        - in: body
+          name: converterSchema
+          description: Input nominal value and currencies (from and to) for converting.
+          schema:
+            type: object
+            required:
+              - from
+              - to
+              - fromValue
+            properties:
+              from:
+                type: string
+              to:
+                type: string
+              fromValue:
+                type: number
+      description: Converts the value to the given currency.
+      responses:
+        '200':
+          description: Convert response
+          schema:
+            type: object
+            properties:
+              from:
+                type: string
+              to:
+                type: string
+              fromValue:
+                type: number
+              result:
+                type: number
+definitions:
+  rate:
+    type: object
+    properties:
+      name:
+        type: string
+        enum: ['USD', 'HUF', 'EUR', 'GBP']
+      rates:
+        type: array
+        items:
+          type: object
+          properties:
+            currency:
+              type: string
+              enum: ['USD', 'HUF', 'EUR', 'GBP']
+            rate:
+              type: number
