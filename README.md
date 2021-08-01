@@ -15,7 +15,16 @@ system architecture planning based on business requirements.
 
 ![](./imgs/output.gif)
 
+## Tested on
+* Ubuntu 20.04.2.0 (Minimal install)
+### Ubuntu requirements
 
+1. Install docker: https://docs.docker.com/engine/install/ubuntu/
+2. Install docker-compose: `sudo apt install docker-compose`
+3. Install PHP >= 8.0: https://linuxize.com/post/how-to-install-php-8-on-ubuntu-20-04/
+4. Install other PHP extensions: `sudo apt install php8.0-mbstring php8.0-dom php8.0-mcrypt php8.0-cli`
+5. Install Composer: `https://getcomposer.org/download/`
+6. Install other tools: `sudo apt install make vim `
 
 ## Requirements
 
