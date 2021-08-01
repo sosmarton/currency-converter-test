@@ -10,31 +10,26 @@ use Illuminate\Support\Facades\Log;
 
 class ExchangeRatesApiIoService implements CurrencyConverterApiInterface
 {
-    public static function GetConfigObject()
+    public function __construct()
     {
-        $object = new stdClass();
-        $object->api_uri = env('EXCHANGE_RATES_API_URI');
-        $object->api_key = env('EXCHANGE_RATES_API_KEY');
-        $object->sleep_delay = env('API_SLEEP_DELAY');
-        $object->currencies = env('CURRENCIES');
+        $this->config_object = new \stdClass();
+        $this->config_object->api_uri = env('EXCHANGE_RATES_API_URI');
+        $this->config_object->api_key = env('EXCHANGE_RATES_API_KEY');
+        $this->config_object->sleep_delay = env('API_SLEEP_DELAY');
+        $this->config_object->currencies = env('CURRENCIES');
 
-        return $object;
     }
 
 
-
-    public static function RequestRateForCurrency($currency_string = false)
+    public function RequestRateForCurrency(bool|string $currency_string = false): \Illuminate\Http\Client\Response|int
     {
 
-        try
-        {
-            $response = Http::get(self::GetConfigObject()->api_uri, [
-                'symbols' => self::GetConfigObject()->currencies,
-                "access_key" => self::GetConfigObject()->api_key
+        try {
+            $response = Http::get($this->config_object->api_uri, [
+                'symbols' => $this->$this->config_object->currencies,
+                "access_key" => $this->$this->config_object->api_key
             ]);
-        }
-        catch (\Throwable $e)
-        {
+        } catch (\Throwable $e) {
             Log::emergency('General Exception occured during sending a request: ' . $e->getMessage());
             return -1;
         }
@@ -43,13 +38,13 @@ class ExchangeRatesApiIoService implements CurrencyConverterApiInterface
     }
 
 
-    public static function GetCurrencyRatesByCurrencyName($currency_name)
+    public function GetCurrencyRatesByCurrencyName(string $currency_name): array|int
     {
         $rate_results = [
             "name" => $currency_name
         ];
 
-        $response = self::RequestRateForCurrency();
+        $response = $this->RequestRateForCurrency();
 
         if ($response === -1 || !$response->successful())
             return -1;
@@ -77,10 +72,10 @@ class ExchangeRatesApiIoService implements CurrencyConverterApiInterface
         return $rate_results;
     }
 
-    public static function ConvertBetweenTwoCurrency($from_currency, $to_currency, $nominal_value)
+    public function ConvertBetweenTwoCurrency(string $from_currency, string $to_currency, float $nominal_value) : array|int
     {
 
-        $response = self::RequestRateForCurrency();
+        $response = $this->RequestRateForCurrency();
 
         if ($response === -1 || !$response->successful())
             return -1;

@@ -10,27 +10,24 @@ use Illuminate\Support\Facades\Log;
 
 class FreeCurrencyConverterApiComService implements CurrencyConverterApiInterface
 {
-
-    public static function GetConfigObject(): \stdClass
+    public function __construct()
     {
-        $object = new \stdClass();
-        $object->api_uri = env('FREE_CURRENCY_CONVERTER_API_URI');
-        $object->api_key = env('FREE_CURRENCY_CONVERTER_API_KEY');
-        $object->sleep_delay = env('API_SLEEP_DELAY');
+        $this->config_object = new \stdClass();
+        $this->config_object->api_uri = env('FREE_CURRENCY_CONVERTER_API_URI');
+        $this->config_object->api_key = env('FREE_CURRENCY_CONVERTER_API_KEY');
+        $this->config_object->sleep_delay = env('API_SLEEP_DELAY');
 
-        return $object;
     }
 
-
-    public static function RequestRateForCurrency(string|bool $currency_string = false): \Illuminate\Http\Client\Response|int
+    public function RequestRateForCurrency(string|bool $currency_string = false): \Illuminate\Http\Client\Response|int
     {
 
         try {
 
-            $response = Http::get(self::GetConfigObject()->api_uri, [
+            $response = Http::get($this->config_object->api_uri, [
                 'q' => $currency_string,
                 'compact' => "ultra",
-                "apiKey" => self::GetConfigObject()->api_key
+                "apiKey" => $this->config_object->api_key
             ]);
 
         } catch (\Throwable $e) {
@@ -42,7 +39,7 @@ class FreeCurrencyConverterApiComService implements CurrencyConverterApiInterfac
     }
 
 
-    public static function GetCurrencyRatesByCurrencyName(string $currency_name): int|array
+    public function GetCurrencyRatesByCurrencyName(string $currency_name): int|array
     {
         $rate_results = [
             "name" => $currency_name
@@ -52,7 +49,7 @@ class FreeCurrencyConverterApiComService implements CurrencyConverterApiInterfac
         foreach (CurrencyHelper::GetAvailableCurrenciesInArrayFormat() as $to_currency) {
 
             $currency_string = implode("_", [$currency_name, $to_currency]);
-            $response = self::RequestRateForCurrency($currency_string);
+            $response = $this->RequestRateForCurrency($currency_string);
 
             if ($response === -1 || !$response->successful())
                 return -1;
@@ -64,18 +61,18 @@ class FreeCurrencyConverterApiComService implements CurrencyConverterApiInterfac
                 "rate" => $response_data->$currency_string
             ];
 
-            sleep(self::GetConfigObject()->sleep_delay);
+            sleep($this->config_object->sleep_delay);
 
         }
 
         return $rate_results;
     }
 
-    public static function ConvertBetweenTwoCurrency(string $from_currency, string $to_currency, float $nominal_value) : int|array
+    public function ConvertBetweenTwoCurrency(string $from_currency, string $to_currency, float $nominal_value): int|array
     {
 
         $currency_string = implode("_", [$from_currency, $to_currency]);
-        $response = self::RequestRateForCurrency($currency_string);
+        $response = $this->RequestRateForCurrency($currency_string);
 
         if ($response === -1 || !$response->successful())
             return -1;

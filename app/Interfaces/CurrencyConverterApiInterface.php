@@ -5,7 +5,7 @@ use App\Services\CurrencyConverterManagerService;
 
 interface CurrencyConverterApiInterface extends CurrencyConverterApiBaseInterface
 {
-    public static function RequestRateForCurrency(string|bool $currency_string = false) : \Illuminate\Http\Client\Response | int;
+    public function RequestRateForCurrency(string|bool $currency_string = false) : \Illuminate\Http\Client\Response | int;
 }
 
 ?>

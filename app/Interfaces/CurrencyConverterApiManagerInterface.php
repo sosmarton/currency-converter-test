@@ -1,9 +1,9 @@
 <?php
 namespace App\Interfaces;
 
-interface CurrencyConverterApiManagerInterface extends CurrencyConverterApiBaseInterface
+interface CurrencyConverterApiManagerInterface
 {
-    public static function GetServices() : array;
+    public function GetServices() : array;
 }
 
 ?>

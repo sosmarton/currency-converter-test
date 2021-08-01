@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Services\CurrencyConverterManagerService;
 use Illuminate\Http\Request;
 
 class ConvertController extends Controller
 {
-    public function ConvertBetweenTwoCurrency(Request $request) : array
+    public function ConvertBetweenTwoCurrency(Request $request, CurrencyConverterManagerService $converter_manager) : array
     {
 
 
@@ -20,7 +18,7 @@ class ConvertController extends Controller
         ]);
 
 
-        return CurrencyConverterManagerService::ConvertBetweenTwoCurrency(
+        return $converter_manager->ConvertBetweenTwoCurrency(
             $data["from"],
             $data["to"],
             $data["fromValue"]

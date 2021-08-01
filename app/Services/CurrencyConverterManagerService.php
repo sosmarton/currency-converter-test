@@ -8,7 +8,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class CurrencyConverterManagerService implements CurrencyConverterApiManagerInterface
 {
-    public static function GetServices() : array
+    public function GetServices() : array
     {
         return [
             FreeCurrencyConverterApiComService::class,
@@ -16,10 +16,10 @@ class CurrencyConverterManagerService implements CurrencyConverterApiManagerInte
         ];
     }
 
-    public static function GetCurrencyRatesByCurrencyName(string $currency_name) : int|array
+    public function GetCurrencyRatesByCurrencyName(string $currency_name) : int|array
     {
-        foreach (self::GetServices() as $service) {
-            $result = $service::GetCurrencyRatesByCurrencyName($currency_name);
+        foreach ($this->GetServices() as $service) {
+            $result = $service->GetCurrencyRatesByCurrencyName($currency_name);
 
             if ($result != -1)
                 return $result;
@@ -27,10 +27,10 @@ class CurrencyConverterManagerService implements CurrencyConverterApiManagerInte
         return -1;
     }
 
-    public static function ConvertBetweenTwoCurrency(string $from_currency, string $to_currency,float $nominal_value) : int|array
+    public function ConvertBetweenTwoCurrency(string $from_currency, string $to_currency,float $nominal_value) : int|array
     {
-        foreach (self::GetServices() as $service) {
-            $result = $service::ConvertBetweenTwoCurrency($from_currency, $to_currency, $nominal_value);
+        foreach ($this->GetServices() as $service) {
+            $result = $service->ConvertBetweenTwoCurrency($from_currency, $to_currency, $nominal_value);
 
             if ($result != -1)
                 return $result;
