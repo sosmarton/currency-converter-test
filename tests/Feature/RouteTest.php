@@ -17,13 +17,13 @@ class RouteTest extends TestCase
 
     public function test_frontend_entry_point_is_200()
     {
-        $response = Http::get(env('TEST_HOST'));
+        $response = $this->get("/");
         $this->assertEquals(200,$response->status(),"Assert if frontend entry point returns status code 200.");
     }
 
     public function test_currencies_endpoint_is_200()
     {
-        $response = Http::get(env('TEST_HOST')."/currencies");
+        $response = $this->get("/currencies");
         $this->assertEquals(200,$response->status(),"Assert if frontend entry point returns status code 200.");
     }
 
@@ -38,6 +38,7 @@ class RouteTest extends TestCase
             "Assert if currencies are returned correctly. (/currencies endpoint)"
         );
     }
+    // ...
 
 
 

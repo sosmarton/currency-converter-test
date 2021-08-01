@@ -1,0 +1,77 @@
+#FROM alpine:latest
+#FROM php:8.0fpm-alpine
+FROM php:fpm-alpine
+RUN apk update
+RUN apk upgrade
+RUN apk add openrc
+RUN apk add --update --no-cache bash \
+				curl \
+				curl-dev \
+				php8-intl \
+				php8-openssl \
+				php8-dba \
+				php8-sqlite3 \
+				php8-pear \
+				php8-phpdbg \
+				php8-gmp \
+				php8-pdo_mysql \
+				php8-pcntl \
+				php8-common \
+				php8-xsl \
+				php8-fpm \
+				php8-mysqli \
+				php8-enchant \
+				php8-pspell \
+				php8-snmp \
+				php8-doc \
+				php8-dev \
+				php8-embed \
+				php8-xmlreader \
+				php8-pdo_sqlite \
+				php8-exif \
+				php8-opcache \
+				php8-ldap \
+				php8-posix \
+				php8-gd  \
+				php8-gettext \
+				php8-json \
+				php8-xml \
+				php8 \
+				php8-iconv \
+				php8-sysvshm \
+				php8-curl \
+				php8-shmop \
+				php8-odbc \
+				php8-phar \
+				php8-pdo_pgsql \
+				php8-imap \
+				php8-pdo_dblib \
+				php8-pgsql \
+				php8-pdo_odbc \
+				php8-xdebug \
+				php8-zip \
+				php8-apache2 \
+				php8-cgi \
+				php8-ctype \
+				php8-bcmath \
+				php8-dom \
+				php8-sockets \
+				php8-soap \
+				php8-sysvmsg \
+				php8-zlib \
+				php8-ftp \
+				php8-sysvsem \
+				php8-pdo \
+				php8-bz2 \
+				php8-mysqli \
+				libxml2-dev
+
+#RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
+#RUN adduser -D -g 'www' www
+RUN mkdir -p /var/www/testsite.local/html
+#RUN chown -R www:www /var/www
+RUN rm -rf /var/www/html/*
+RUN apk add tzdata
+RUN cp /usr/share/zoneinfo/"Europe/Berlin" /etc/localtime
+RUN echo "Europe/Berlin" > /etc/timezone
+#USER www
