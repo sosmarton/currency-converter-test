@@ -2,21 +2,16 @@
 
 namespace App\Providers;
 
+use App\Interfaces\CurrencyConverterApiInterface;
+use App\Interfaces\CurrencyConverterApiManagerInterface;
 use \App\Services\CurrencyConverterManagerService;
+use App\Services\FreeCurrencyConverterApiComService;
 use Illuminate\Support\ServiceProvider;
 
 
 class CurrencyConverterServiceProvider extends ServiceProvider
 {
 
-
-
-    public $bindings = [
-        CurrencyConverterServiceProvider::class => CurrencyConverterManagerService::class,
-    ];
-    public $singletons = [
-        CurrencyConverterServiceProvider::class => CurrencyConverterManagerService::class,
-    ];
 
     /**
      * Register services.
@@ -26,7 +21,7 @@ class CurrencyConverterServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        $this->app->bind(CurrencyConverterApiInterface::class,FreeCurrencyConverterApiComService::class);
     }
 
     /**

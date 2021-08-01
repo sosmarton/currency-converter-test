@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Services\CurrencyConverterManagerService;
 use Illuminate\Http\Request;
 
-class ConvertController extends Controller
+class ConvertController extends CurrencyDataManagerController
 {
     public function ConvertBetweenTwoCurrency(Request $request, CurrencyConverterManagerService $converter_manager) : array
     {

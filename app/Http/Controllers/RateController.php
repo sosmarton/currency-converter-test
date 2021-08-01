@@ -7,13 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RateRequest;
 use App\Services\CurrencyConverterManagerService;
 
-class RateController extends Controller
+class RateController extends CurrencyDataManagerController
 {
-    public function GetAllRateByCurrencyName(RateRequest $request, CurrencyConverterManagerService $converter_manager) : array
+    public function GetAllRateByCurrencyName(RateRequest $request) : array
     {
         $validated = $request->validated();
 
-        $result = $converter_manager->GetCurrencyRatesByCurrencyName($validated["fromCurrency"]);
+        $result = $this->GetCurrencyRatesByCurrencyName($validated["fromCurrency"]);
 
         if ($result === -1)
             return ["error" => "Fatal Error - no api can be reached"];
