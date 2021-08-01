@@ -21,14 +21,22 @@ class FreeCurrencyConverterApiComService implements CurrencyConverterApiInterfac
 
     public function RequestRateForCurrency(string|bool $currency_string = false): \Illuminate\Http\Client\Response|int
     {
-
+        // https://www.leonelngande.com/laravel-http-client-retry-without-throwing-an-exception/
         try {
+            $response = rescue(function ($currency_string) {
 
-            $response = Http::get($this->config_object->api_uri, [
-                'q' => $currency_string,
-                'compact' => "ultra",
-                "apiKey" => $this->config_object->api_key
-            ]);
+                $response = Http::get($this->config_object->api_uri, [
+                    'q' => $currency_string,
+                    'compact' => "ultra",
+                    "apiKey" => $this->config_object->api_key
+                ]);
+
+            }, function ($e) {
+
+                $response = $e->response;
+
+            });
+
 
         } catch (\Throwable $e) {
             Log::emergency('General Exception occured during sending a request: ' . $e->getMessage());
