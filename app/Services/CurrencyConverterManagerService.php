@@ -11,8 +11,8 @@ class CurrencyConverterManagerService implements CurrencyConverterApiManagerInte
     public function GetServices() : array
     {
         return [
-            FreeCurrencyConverterApiComService::class,
-            ExchangeRatesApiIoService::class
+            new FreeCurrencyConverterApiComService(),
+            new ExchangeRatesApiIoService()
         ];
     }
 

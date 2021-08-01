@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\CurrencyHelper;
 use Illuminate\Http\Request;
 use App\Http\Requests\RateRequest;
+use App\Services\CurrencyConverterManagerService;
 
 class RateController extends Controller
 {

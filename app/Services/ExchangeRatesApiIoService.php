@@ -23,22 +23,12 @@ class ExchangeRatesApiIoService implements CurrencyConverterApiInterface
 
     public function RequestRateForCurrency(bool|string $currency_string = false): \Illuminate\Http\Client\Response|int
     {
-        // https://www.leonelngande.com/laravel-http-client-retry-without-throwing-an-exception/
 
         try {
-            $response = rescue(function () {
-
-                $response = Http::get($this->config_object->api_uri, [
-                    'symbols' => $this->$this->config_object->currencies,
-                    "access_key" => $this->$this->config_object->api_key
-                ]);
-
-            }, function ($e) {
-
-                $response = $e->response;
-
-            });
-
+            $response = Http::get($this->config_object->api_uri, [
+                'symbols' => $this->$this->config_object->currencies,
+                "access_key" => $this->$this->config_object->api_key
+            ]);
         } catch (\Throwable $e) {
             Log::emergency('General Exception occured during sending a request: ' . $e->getMessage());
             return -1;
