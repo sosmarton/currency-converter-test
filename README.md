@@ -1,62 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<div style="text-align:center">
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<h1>Currency Converter Test</h1>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+</div>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Overview
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The Currency Convert Test is a Laravel based application, which was created
+as a probation work, to demonstrate my current knowledge about Laravel, PHP, Docker
+system architecture planning based on business requirements.
 
-## Learning Laravel
+![](./imgs/output.gif)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Requirements
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Tools and development environment
+* Any type of linux distribution
+* Composer (>= 2.x)
+* Docker Engine (>= 2.0)
+* Docker-Compose (>= 1.25 )
 
-### Premium Partners
+### Software
+* Alpine Linux
+* NGINX (>= 1.x)
+* PHP (>= 8.0)
+* Laravel (>= 8.0)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+### Other
+* Could be found in `composer.json`
 
-## Contributing
+## Running Tests
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+![](./imgs/5iaiw1.jpg)
 
-## Code of Conduct
+Run:
+`php artisan test`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Installation instructions
 
-## Security Vulnerabilities
+### 1. Download/clone the files from here
+```shell
+git clone https://github.com/sosmarton/currency-converter-test
+```
+### 2. Copy the `.env` file to the root of the project
+(The file is sent via email)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Install composer dependencies and copy src files to src directory
+```shell
+make pre-install
+```
 
-## License
+### 4. Configure proper permissions for the `src` directory
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+It is a requirement for Alpine Linux to work properly.
+The 82 UID/GUID is the Nginx users UID/GUID for Alpine linux.
+
+(It was separated from the Makefile because it runs "sensitive" commands on the Host OS)
+
+```shell
+sudo chmod -R 755 ./src/*
+sudo chown -R 82:82 ./src/* 
+```
+
+### 5. Enter `[project root]/docker` directory and setup the containers
+```shell
+cd docker
+make install
+```
+
+### 6. Visit site
+Visit and see frontend at `http://localhost:8080`.
+
+## Specifications
+
+### Infrastructure overview
+
+![](./imgs/architecture.png)
+
+## Useful Links
+
+* [OpenAPI Speciifcation](./docs/specifications/api-specification.yml)
+  * ```I fixed the OpenAPI specification, because there were some typos.```
+
