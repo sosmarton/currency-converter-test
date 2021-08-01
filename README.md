@@ -41,6 +41,42 @@ system architecture planning based on business requirements.
 Run:
 `php artisan test`
 
+## Optional configuration
+
+You can switch orders and change currencies in the following file:
+```config/currencyapis.php```
+
+You should keep the following format:
+
+```php
+return [
+    'api_classes' => [
+        FreeCurrencyConverterApiComService::class,
+        ExchangeRatesApiIoService::class
+    ],
+    'currencies' => [
+        "EUR",
+        "USD",
+        "HUF",
+        "GBP"
+    ]
+];
+```
+
+You can only choose from these two classes, and you can comment out if you wish.
+The API-s are executed in the given order that you can see here.
+
+You can set any currencies that are currently supported by the configured API's.
+
+### failover testing
+
+If you want to test failover, you can set the first API in the .env file to `http://localhost`:
+example:
+```dotenv
+FREE_CURRENCY_CONVERTER_API_URI="http://localhost"
+EXCHANGE_RATES_API_URI="[...]"
+```
+
 ## Installation instructions
 
 ### 1. Download/clone the files from here
