@@ -2,6 +2,8 @@
 
 <h1>Currency Converter Test</h1>
 
+![](https://img.shields.io/badge/type-probation%20work-green) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;![](https://img.shields.io/badge/status-active-green)
+
 
 </div>
 
