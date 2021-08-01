@@ -17,10 +17,7 @@ class CurrencyDataManagerController extends Controller implements CurrencyConver
     }
     public function GetServices() : array
     {
-        return [
-            FreeCurrencyConverterApiComService::class,
-            ExchangeRatesApiIoService::class
-        ];
+        return config('currencyapis.api_classes');
     }
 
     public function GetCurrencyRatesByCurrencyName(string $currency_name) : int|array

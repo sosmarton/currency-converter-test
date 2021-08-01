@@ -20,7 +20,7 @@ class RateRequest extends FormRequest
     public function rules()
     {
         return [
-            'fromCurrency' => 'required|in:'.env('CURRENCIES')
+            'fromCurrency' => 'required|in:'.implode(',',config('currencyapis.currencies'))
         ];
     }
 }

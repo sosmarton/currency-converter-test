@@ -16,7 +16,7 @@ class ExchangeRatesApiIoService implements CurrencyConverterApiInterface
         $this->config_object->api_uri = env('EXCHANGE_RATES_API_URI');
         $this->config_object->api_key = env('EXCHANGE_RATES_API_KEY');
         $this->config_object->sleep_delay = env('API_SLEEP_DELAY');
-        $this->config_object->currencies = env('CURRENCIES');
+        $this->config_object->currencies = implode(',',config('currencyapis.currencies'));
 
     }
 

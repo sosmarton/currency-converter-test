@@ -9,8 +9,7 @@ class CurrencyHelper
     public static function GetAvailableCurrenciesInArrayFormat() : int|array
     {
         try {
-            $currencies = env('CURRENCIES');
-            return explode(',', $currencies);
+            return config('currencyapis.currencies');
         }
         catch (\Throwable $e) {
             Log::emergency( 'General Exception occured during currency import: ' . $e->getMessage());

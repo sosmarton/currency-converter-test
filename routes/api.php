@@ -21,4 +21,4 @@ use App\Http\Controllers\ConvertController;
 
 Route::get('currencies', [CurrencyController::class,'ListAllCurrency']);
 Route::get('rates/{fromCurrency}', [RateController::class,'GetAllRateByCurrencyName']);
-Route::post('convert', [ConvertController::class,'ConvertBetweenTwoCurrency']);
+Route::post('convert', [ConvertController::class,'ConvertValuesBetweenTwoCurrency']);

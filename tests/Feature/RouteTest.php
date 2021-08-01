@@ -33,7 +33,7 @@ class RouteTest extends TestCase
         // Other tests need to be performed while the server is running
         $response = $this->get("/currencies");
         $this->assertEquals(
-            explode(",",env('CURRENCIES')),
+            config('currencyapis.currencies'),
             $response->json(),
             "Assert if currencies are returned correctly. (/currencies endpoint)"
         );
