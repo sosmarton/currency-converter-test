@@ -40,7 +40,7 @@ A feladat implementálása során nem követelmény, de plusz pontot érő szemp
 
 ### Swagger
 Itt található az OPEN API leíró:
-[OpenAPI Speciifcation](./docs/specifications/api-specification.yml)
+[OpenAPI Speciifcation](./api-specification.yml)
 
 Segítség a felhasználásához:  https://editor.swagger.io/
 
